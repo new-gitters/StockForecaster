@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>
+    This web site will find the volume for a Cylinder, Sphere or Cone
+</h1>
+<p>
+    Select the units(English or SI)<br>
+    <input type="radio" id="en" name="unit" value="English">
+    <label for="en">English</label>
+    <input type="radio" id="si" name="unit" value="SI">
+    <label for="si">SI</label><br><br>
+    <label for="shape">Select the shape</label>
+    <select id="shape">
+        <option value="Cone">Cone</option>
+        <option value="Sphere">Sphere</option>
+        <option value="Cylinder">Cylinder</option>
+    </select><br><br>
+    <label for="radius">Enter the radius</label>
+    <input type="text" id="radius" name="radius"><br><br>
+    <label for="height">For the cylinder and cone, Enter the height</label>
+    <input type="text" id="height" name="height"><br><br>
+    <p id="demo"></p>
+    <button onclick="work()"> Click to Calculate the results</button><br><br>
+
+</p>
+<script>
+        function reset()
+        {
+            document.getElementById("demo").innerHTML = "";
+        }
+        function sphereVolume(radius)
+        {
+            return Math.pow(radius, 3)*Math.PI*(4.0/3.0);
+        }
+        function cylinderVolume(radius, height)
+        {
+            return Math.pow(radius, 2)*Math.PI*height;
+        }
+        function coneVolume(radius,height)
+        {
+            return cylinderVolume(radius, height)*(1.0/3.0);
+        }
+        function work(){
+            var x = document.getElementById("demo");
+            var resetButton = '<button onclick="reset()">reset the form</button><br><br>';
+
+            var heading = '<h1>Results</h1><br><br>';
+
+            var units = document.getElementsByName('unit');
+            var unit_value;
+            for(var i = 0; i < units.length; i++){
+                if(units[i].checked){
+                    unit_value = units[i].value;
+                }
+            }
+            var unit = "You selected to use " + unit_value + " units<br><br>";
+
+            var e = document.getElementById("shape");
+            var shape_value = e.options[e.selectedIndex].text;
+            var shape = "You selected to find the values for a " + shape_value + " shape<br><br>";
+            var unit_row;
+            if(unit_value == 'English')
+            {
+                unit_row = '<tr><th><th><th>(ft)<th><th>(ft)<th><th>(ft^3)<th><tr>';
+            }
+            else{
+                unit_row = '<tr><th><th><th>(m)<th><th>(m)<th><th>(m^3)<th><tr>';
+            }
+            var radius = document.getElementById("radius").value;
+            var height = document.getElementById("height").value;
+            var volume;
+            if(shape_value == 'Cone')
+            {
+                volume = coneVolume(radius, height);
+            }
+            else if(shape_value == 'Sphere')
+            {
+                volume = sphereVolume(radius);
+            }
+            else{
+                volume = cylinderVolume(radius, height);
+            }
+            var value_row = '<tr><th>'+shape_value+'<th><th>'+radius+'<th><th>'+height+'<th><th>'+volume+'<th><tr>';
+            var table = '<table><tr><th>Shape<th><th>Radius<th><th>Height<th><th>Volume<th><tr>'+unit_row+value_row+'</table>';
+            
+            x.innerHTML = resetButton + heading + unit + shape+table;
+
+        }
+</script>
+</body>
+</html>

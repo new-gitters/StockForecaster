@@ -1,0 +1,12 @@
+1. http://localhost:8080/api/demo/historicaldata
+{
+	 "symbol": "GOOG",
+     "time": "2017-02-17",
+     "open": 11.3,
+     "high": 12.3,
+     "low": 10.1,
+     "close":11.3,
+     "volume": 10
+
+
+}

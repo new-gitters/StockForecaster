@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Stock Pattern Recognition</title>
+		<script src="http://code.jquery.com/jquery.min.js"></script>
+		<script src="http://Tom-Alexander.github.io/regression-js/jquery.flot.js"></script>
+		<script src="../build/regression.min.js"></script>
+		<script src="../../MAR_year_js.js"></script>
+<!-- 		<script src="../polynomial.min.js"></script> -->
+<!-- 		<script src="../poly-roots/test/test.js"></script> -->
+		<script>
+	  	var num_maxmin= [];
+	  	var num_maxmin_v1= [];
+	  	var num_maxmin_v2= [];
+	
+
+		$(function(){
+
+			var myRegression = regression('polynomial', data, 15);
+			console.log(data.length);
+			$.plot($('.graph'), [
+				{data: myRegression.points, label: 'Polynomial'},
+				{data: data, lines: { show: false }, points: { show: true }},
+			]);
+			var myRegression = regression('polynomial', data, 6);
+			var test = myRegression.equation;
+			var abs = 0;
+			var num = test;
+			  num[0] = (Math.abs(test[0]) - abs)>0 ? test[0] +1-1: 0;
+			  num[1] = (Math.abs(test[1] + 1 - 1) - abs)>0?test[1] +1-1: 0;
+			  num[2] = (Math.abs(test[2] + 1 - 1) - abs)>0?test[2] +1-1: 0;
+			  num[3] = (Math.abs(test[3] + 1 - 1) - abs)>0?test[3] +1-1: 0;
+			  num[4] = (Math.abs(test[4] + 1 - 1) - abs)>0?test[4] +1-1: 0;
+			  num[5] = (Math.abs(test[5] + 1 - 1) - abs)>0?test[5] +1-1: 0;
+			  num[6] = (Math.abs(test[6] + 1 - 1) - abs)>0?test[6] +1-1: 0;
+			  num[7] = (Math.abs(test[7] + 1 - 1) - abs)>0?test[7] +1-1: 0;
+			  num[8] = (Math.abs(test[8] + 1 - 1) - abs)>0?test[8] +1-1: 0;
+			  num[9] = (Math.abs(test[9] + 1 - 1) - abs)>0?test[9] +1-1: 0;
+			  num[10] = (Math.abs(test[10] + 1 - 1) - abs)>0?test[10] +1-1: 0;
+			  num[11] = (Math.abs(test[11] + 1 - 1) - abs)>0?test[11] +1-1: 0;
+			  num[12] = (Math.abs(test[12] + 1 - 1) - abs)>0?test[12] +1-1: 0;
+			  num[13] = (Math.abs(test[13] + 1 - 1) - abs)>0?test[13] +1-1: 0;
+			 num[14] = (Math.abs(test[14] + 1 - 1) - abs)>0?test[14] +1-1: 0;
+			  num[15] = (Math.abs(test[15] + 1 - 1) - abs)>0?test[15] +1-1: 0;
+			// var n = num.toFixed(2) + test[0];
+			 console.log(num[0],num[1],num[2],num[3],num[4],num[5],num[6],num[7],num[8],num[9],num[10],num[11],num[12],num[13],num[14],num[15]);
+
+				number = 0
+				zero_num = 0;
+				for(; number <15; number ++)
+				{
+					//console.log(number);
+					if(num[number]){}
+						else{  zero_num = number;
+							break;}
+				}
+				console.log(zero_num,num[zero_num]);
+
+				 var x = 0;
+
+		function printRoots( lowerBound, upperBound, step) {
+		
+		
+		var s1 = num[1];
+		 var zero_temp = 1
+		 x = 0;
+		 s0 = num[0] + num[1] * (x) + num[2] * (x*x) + num[3] * (x*x*x)+ num[4] * (x*x*x*x)+ num[5] * (x*x*x*x*x);
+	  	console.log(x,s1, num[0],num[1] * (x^1),num[1] * (x^2),num[3] * (x^3), num[4] * (x^4), num[5] * (x^5));
+	  	var s6_b = 0;
+
+
+		for (var  x = lowerBound, i_mm =0 ; x <= data.length ; x += step) {
+			// for(var zero_temp = 1; zero_temp < zero_num -1  ; zero_temp ++)
+			// 	{ 
+			// 		s1 = s1 + (zero_temp+1)* (x^(zero_temp))*num[zero_temp +1];	
+			// 		//console.log(zero_temp);
+	  //   		}
+	  	// s1 = num[1] 
+	  	// + (zero_temp+1)*num[zero_temp +1] * (x^(zero_temp)) 
+	  	// + (zero_temp+2)*num[zero_temp +2] * (x^(zero_temp+1)) 
+	  	// + (zero_temp+3)*num[zero_temp +3] * (x^(zero_temp+2))
+	  	// + (zero_temp+4)*num[zero_temp +4] * (x^(zero_temp+3))
+	  	// + (zero_temp+5)*num[zero_temp +5] * (x^(zero_temp+4))
+	  	// + (zero_temp+6)*num[zero_temp +6] * (x^(zero_temp+5))
+	  	// + (zero_temp+7)*num[zero_temp +7] * (x^(zero_temp+6));
+
+	  	//s1 = num[0] + num[1] * (x^1) + num[1] * (x^2) + num[3] * (x^3)+ num[4] * (x^4)+ num[5] * (x^5);
+	  	// s1 = parseFloat(num[0]);
+	  	// s2 = parseFloat(num[0]) + parseFloat(num[1]*(x)) ;
+	  	// s3 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) ;
+	  	// s4 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) + parseFloat(num[3] *(x*x*x))+ parseFloat(num[4] *(x*x*x*x));
+	  	// s5 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) + parseFloat(num[3] *(x*x*x))+ parseFloat(num[4] *(x*x*x*x))+ parseFloat(num[5] * (x*x*x*x*x));
+
+	  	s6 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) + parseFloat(num[3] *(x*x*x))+ parseFloat(num[4] *(x*x*x*x))+ parseFloat(num[5] *(x*x*x*x*x))+ parseFloat(num[6] * (x*x*x*x*x*x));
+
+	  	s6_ = parseFloat(num[1]) + 2*parseFloat(num[2]*(x)) + 3*parseFloat(num[3] *(x*x)) + 4*parseFloat(num[4] *(x*x*x))+ 5*parseFloat(num[5] *(x*x*x*x))+6*parseFloat(num[6] *(x*x*x*x*x));
+	  	
+	  	if(s6_*s6_b < 0){
+
+	  	//console.log(x, 'result', num[0], num[1]*x,num[2]*x*x,num[3]*x*x*x, num[4]*x*x*x*x,num[5]*x*x*x*x*x);
+	  	console.log(x, 'result_sum',s6,s6_);
+	  	num_maxmin[i_mm] = parseFloat(x);
+	  	num_maxmin_v1[i_mm] = s6;
+	  	num_maxmin_v2[i_mm] = s6_;
+	  	//console.log(num_maxmin, num_maxmin_v,i_mm);
+	  	i_mm = i_mm + 1;
+
+	  	}
+	  	s6_b = s6_;
+	  		// if( Math.abs(s1) < 0.01 ){}
+	    	// console.log(x,s1, num[1],(zero_temp+1)*num[zero_temp +1] * (x^(zero_temp))
+	    	// 	,(zero_temp+2)*num[zero_temp +2] * (x^(zero_temp+1))
+	    	// 	,(zero_temp+3)*num[zero_temp +3] * (x^(zero_temp+2))
+	  	 	// 	,(zero_temp+4)*num[zero_temp +4] * (x^(zero_temp+3))
+	  			// ,(zero_temp+5)*num[zero_temp +5] * (x^(zero_temp+4))
+	  			// ,(zero_temp+6)*num[zero_temp +6] * (x^(zero_temp+5))
+	  			// ,(zero_temp+7)*num[zero_temp +7] * (x^(zero_temp+6)) );
+	  		//console.log(x,s1);
+		}
+	}
+	printRoots( 0, data.length, 1);
+	console.log(num_maxmin, num_maxmin_v1,num_maxmin_v2);
+	console.log(num_maxmin_v1.length)
+	//search for similar pattern in the history
+// 1 double bottom
+// 2 double top
+// 3 head and shoulder bottom
+// 4 head and shoulder top
+// 5 triple bottom
+// 6 triple top
+// 7 falling wedge
+// 8
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+// This function notation is sorta new, but useful here
+// Part of the EcmaScript 6 Draft
+// developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope
+// var poly = (x =>  3*x*x*x*x+3*x*x + 2*x-7);
+ 
+// function sign(x) {
+// 	return (x < 0.0) ? -1 : (x > 0.0) ? 1 : 0;
+// }
+ 
+// function printRoots(f, lowerBound, upperBound, step) {
+// 	var  x = lowerBound, ox = x,
+// 		 y = f(x), oy = y,
+// 		 s = sign(y), os = s;
+ 
+// 	for (; x <= upperBound ; x += step) {
+// 	    s = sign(y = f(x));
+// 	    if (s == 0) {
+// 			console.log(x);
+// 	    }
+// 	    else if (s != os) {
+// 			var dx = x - ox;
+// 			var dy = y - oy;
+// 			var cx = x - dx * (y / dy);
+// 			console.log("~" + cx);
+// 	    }
+// 	    ox = x; oy = y; os = s;
+// 	}
+// }
+ 
+// printRoots(poly, -3, 400, 0.002);
+///////////////////////////////////////////////////////////////////////////////////////
+ 
+
+
+
+
+
+			//console.log(Devi_string);
+			//var test = number(myRegression.equation[0];);
+			//var poly_result = test.concat(test)；
+			// var p = new Polynomial(Test_string).derive(1);
+
+		});
+
+		</script>
+
+		<style>
+			html, body{
+				margin: 0;
+				padding: 0;
+				font-family: "Helvetica", sans-serif;
+				text-align: center;
+
+			}
+			.container{
+				margin: 0 auto;
+				width: 1170px;
+			}
+			.graph{
+				width: 1170px;
+				height: 500px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="container">
+			<h1>Stock Price Pattern Recognition</h1>
+			<div class="graph"></div>
+			<h2></h2>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Stock Pattern Recognition</title>
+		<script src="http://code.jquery.com/jquery.min.js"></script>
+		<script src="http://Tom-Alexander.github.io/regression-js/jquery.flot.js"></script>
+		<script src="../build/regression.min.js"></script>
+		<script src="../../TCEHY_year_js.js"></script>
+<!-- 		<script src="../polynomial.min.js"></script> -->
+<!-- 		<script src="../poly-roots/test/test.js"></script> -->
+		<script>
+	  	var num_maxmin= [];
+	  	var num_maxmin_v1= [];
+	  	var num_maxmin_v2= [];
+	  	var num = [];
+	  	var end_num = 0;
+	
+
+		$(function(){
+
+			// do the regression (polynomial to the third degree)
+			var myRegression = regression('polynomial', data, 15);
+			console.log(data.length);
+
+			// Plot the result
+			$.plot($('.graph'), [
+				{data: myRegression.points, label: 'Polynomial'},
+				{data: data, lines: { show: false }, points: { show: true }},
+			]);
+
+			var myRegression = regression('polynomial', data, 6);
+
+			// print the equation out
+			//$('h2').text(myRegression.string);
+			console.log(myRegression);
+			var test = myRegression.equation;
+			//var test = test.ToString();
+			// var Devi_string = test[1] + 2*test[2]+'x +' +test[3]+test[4]+test[5]+test[6]+test[7]+test[8]+test[9]+test[10]+test[11]+test[12] +test[13]+test[14]+test[15];
+			//console.log(test);
+			//var test1 = parseInt(test[0]);
+			//console.log(test[0] + 1);
+			var abs = 0;
+			//var num = test;
+			  num[0] = (Math.abs(test[0]) - abs)>0 ? test[0] +1-1: 0;
+			  num[1] = (Math.abs(test[1] + 1 - 1) - abs)>0?test[1] +1-1: 0;
+			  num[2] = (Math.abs(test[2] + 1 - 1) - abs)>0?test[2] +1-1: 0;
+			  num[3] = (Math.abs(test[3] + 1 - 1) - abs)>0?test[3] +1-1: 0;
+			  num[4] = (Math.abs(test[4] + 1 - 1) - abs)>0?test[4] +1-1: 0;
+			  num[5] = (Math.abs(test[5] + 1 - 1) - abs)>0?test[5] +1-1: 0;
+			  num[6] = (Math.abs(test[6] + 1 - 1) - abs)>0?test[6] +1-1: 0;
+			  num[7] = (Math.abs(test[7] + 1 - 1) - abs)>0?test[7] +1-1: 0;
+			  num[8] = (Math.abs(test[8] + 1 - 1) - abs)>0?test[8] +1-1: 0;
+			  num[9] = (Math.abs(test[9] + 1 - 1) - abs)>0?test[9] +1-1: 0;
+			  num[10] = (Math.abs(test[10] + 1 - 1) - abs)>0?test[10] +1-1: 0;
+			  num[11] = (Math.abs(test[11] + 1 - 1) - abs)>0?test[11] +1-1: 0;
+			  num[12] = (Math.abs(test[12] + 1 - 1) - abs)>0?test[12] +1-1: 0;
+			  num[13] = (Math.abs(test[13] + 1 - 1) - abs)>0?test[13] +1-1: 0;
+			 num[14] = (Math.abs(test[14] + 1 - 1) - abs)>0?test[14] +1-1: 0;
+			  num[15] = (Math.abs(test[15] + 1 - 1) - abs)>0?test[15] +1-1: 0;
+			// var n = num.toFixed(2) + test[0];
+			 console.log(num[0],num[1],num[2],num[3],num[4],num[5],num[6],num[7],num[8],num[9],num[10],num[11],num[12],num[13],num[14],num[15]);
+
+/////////////////////////////////////////////////////////////////////////////////////
+		// var poly1 = (x =>15*test[15]*x^14 + 14*test[14]*x^13 + 13*test[13]*x^12 + 12*test[12]*x^11+ 11*test[11]*x^10+ 10*test[10]*x^9+ 9*test[9]*x^8+ 8*test[8]*x^7+ 7*test[7]*x^6 + 6*test[6]*x^5 + 5*test[5]*x^4+ 4*test[4]*x^3 + 3*test[3]*x^2 + 5*test[5]*x^4 + 4*test[4]*x^3 + 3*test[3]*x^2 + 2*test[2]*x + test[1]);
+				// var poly1 = (x => 15*num15*x^14 + 14*num14*x^13 + 13*num13*x^12 + 12*num12*x^11+ 11*num11*x^10+ 10*num10*x^9+ 9*num9*x^8+ 8*num8*x^7+ 7*num7*x^6 + 6*num6*x^5 + 5*num5*x^4+ 4*num4*x^3 + 3*num3*x^2 + 2*num2*x + num1);
+
+				number = 0
+				zero_num = 0;
+				for(; number <15; number ++)
+				{
+					//console.log(number);
+					if(num[number]){}
+						else{  zero_num = number;
+							break;}
+				}
+				console.log(zero_num,num[zero_num]);
+
+				 var x = 0;
+
+		function printRoots( lowerBound, upperBound, step) {
+		
+		
+		var s1 = num[1];
+		// console.log(s1, s1 + (zero_num_+1)* (x^(zero_num_))*num[zero_num_ +1], s1 + (zero_num_+1)* (x^(zero_num_))*num[zero_num_ +1] + (zero_num_+1+1)* (x^(zero_num_ +1))*num[zero_num_ +1 +1]);
+		 var zero_temp = 1
+		 x = 0;
+		 s0 = num[0] + num[1] * (x) + num[2] * (x*x) + num[3] * (x*x*x)+ num[4] * (x*x*x*x)+ num[5] * (x*x*x*x*x);
+	  	console.log(x,s1, num[0],num[1] * (x^1),num[1] * (x^2),num[3] * (x^3), num[4] * (x^4), num[5] * (x^5));
+	  	var s6_b = 0;
+
+
+ 
+		for (var  x = lowerBound, i_mm =0 ; x <= data.length ; x += step) {
+			// for(var zero_temp = 1; zero_temp < zero_num -1  ; zero_temp ++)
+			// 	{ 
+			// 		s1 = s1 + (zero_temp+1)* (x^(zero_temp))*num[zero_temp +1];	
+			// 		//console.log(zero_temp);
+	  //   		}
+	  	// s1 = num[1] 
+	  	// + (zero_temp+1)*num[zero_temp +1] * (x^(zero_temp)) 
+	  	// + (zero_temp+2)*num[zero_temp +2] * (x^(zero_temp+1)) 
+	  	// + (zero_temp+3)*num[zero_temp +3] * (x^(zero_temp+2))
+	  	// + (zero_temp+4)*num[zero_temp +4] * (x^(zero_temp+3))
+	  	// + (zero_temp+5)*num[zero_temp +5] * (x^(zero_temp+4))
+	  	// + (zero_temp+6)*num[zero_temp +6] * (x^(zero_temp+5))
+	  	// + (zero_temp+7)*num[zero_temp +7] * (x^(zero_temp+6));
+
+	  	//s1 = num[0] + num[1] * (x^1) + num[1] * (x^2) + num[3] * (x^3)+ num[4] * (x^4)+ num[5] * (x^5);
+	  	// s1 = parseFloat(num[0]);
+	  	// s2 = parseFloat(num[0]) + parseFloat(num[1]*(x)) ;
+	  	// s3 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) ;
+	  	// s4 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) + parseFloat(num[3] *(x*x*x))+ parseFloat(num[4] *(x*x*x*x));
+	  	// s5 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) + parseFloat(num[3] *(x*x*x))+ parseFloat(num[4] *(x*x*x*x))+ parseFloat(num[5] * (x*x*x*x*x));
+
+	  	s6 = parseFloat(num[0]) + parseFloat(num[1]*(x)) + parseFloat(num[2] *(x*x)) + parseFloat(num[3] *(x*x*x))+ parseFloat(num[4] *(x*x*x*x))+ parseFloat(num[5] *(x*x*x*x*x))+ parseFloat(num[6] * (x*x*x*x*x*x));
+
+	  	s6_ = parseFloat(num[1]) + 2*parseFloat(num[2]*(x)) + 3*parseFloat(num[3] *(x*x)) + 4*parseFloat(num[4] *(x*x*x))+ 5*parseFloat(num[5] *(x*x*x*x))+6*parseFloat(num[6] *(x*x*x*x*x));
+	  	end_num = s6;
+	  	
+	  	if(s6_*s6_b < 0){
+
+	  	//console.log(x, 'result', num[0], num[1]*x,num[2]*x*x,num[3]*x*x*x, num[4]*x*x*x*x,num[5]*x*x*x*x*x);
+	  	console.log(x, 'result_sum',s6,s6_);
+	  	num_maxmin[i_mm] = parseFloat(x);
+	  	num_maxmin_v1[i_mm] = s6;
+	  	num_maxmin_v2[i_mm] = s6_;
+	  	//console.log(num_maxmin, num_maxmin_v,i_mm);
+	  	i_mm = i_mm + 1;
+
+	  	}
+	  	s6_b = s6_;
+
+		}
+	}
+	printRoots( 0, data.length, 1);
+
+		});
+
+
+
+	//search for similar pattern in the history
+// 1 double bottom
+// 2 double top
+// 3 head and shoulder bottom
+// 4 head and shoulder top
+// 5 triple bottom
+// 6 triple top
+// 7 falling wedge
+// 8 Rising Wedge
+// 9 Lead-in, Bump and Run
+
+function Pattern_Detection(){
+	var threshold = 0.1;
+	console.log(num_maxmin, num_maxmin_v1,num_maxmin_v2, num[0],end_num);
+	console.log(num_maxmin_v1.length)
+	var Diff = end_num - num[0];
+
+	// console.log('Pattern Detection Function Activated');
+	// document.getElementById('toChange').src='DB.png';
+	// document.getElementById("pattern_type").innerHTML = "Cup and Handle: this stock price may fall in the future";
+
+
+/////// 1 root
+if(num_maxmin_v1.length == 1){
+	if(num_maxmin_v2[num_maxmin_v1.length - 1 ] > 0) { 
+				console.log("cup and handle");
+				document.getElementById("pattern_img").src= "CH.png";
+				document.getElementById("pattern_type").innerHTML = "Cup and Handle: this stock price may fall in the future";
+}else{
+				document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";
+			}
+
+}
+
+
+
+
+//////// 2 roots
+else if(num_maxmin_v1.length == 2){
+
+	if(num_maxmin_v2[num_maxmin_v1.length - 1 ] < 0 && num[0] < num_maxmin_v1[num_maxmin_v1.length - 1 ]) { 
+				console.log("cup and handle");
+				document.getElementById("pattern_img").src= "CH.png";
+				document.getElementById("pattern_type").innerHTML = "Cup and Handle: this stock price may fall in the future";}else{document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";}
+
+				if(num_maxmin_v2[num_maxmin_v1.length - 1 ] > 0  && num[0] < num_maxmin_v1[num_maxmin_v1.length - 1 ]) { 
+				console.log("cup and handle");
+				document.getElementById("pattern_img").src= "CH.png";
+				document.getElementById("pattern_type").innerHTML = "Can be Cup and Handle or other stock patterns";}else{document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";}
+
+}
+
+////// 3 roots
+else if(num_maxmin_v1.length == 3){
+
+		if(num_maxmin_v2[num_maxmin_v1.length - 1 ] < 0) { 
+			if(Math.abs(num_maxmin_v1[num_maxmin_v1.length - 1 ] - num_maxmin_v1[num_maxmin_v1.length - 3])/num_maxmin_v1[num_maxmin_v1.length - 3] < threshold){
+				document.getElementById("pattern_img").src= "DT.png";
+				document.getElementById("pattern_type").innerHTML = "Double Top Pattern: this stock price may fall in the future";
+			}else{
+				document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";
+			}
+}
+
+		if(num_maxmin_v2[num_maxmin_v1.length - 1 ] > 0) { 
+			if(Math.abs(num_maxmin_v1[num_maxmin_v1.length - 1 ] - num_maxmin_v1[num_maxmin_v1.length - 3])/num_maxmin_v1[num_maxmin_v1.length - 3] < threshold){
+				document.getElementById("pattern_img").src= "DB.png";
+				document.getElementById("pattern_type").innerHTML = "Double Bottom: this stock price may rise in the future";
+			}else{
+				document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";
+			}
+}
+
+//
+}
+
+
+/////////////////4 roots
+else if(num_maxmin_v1.length == 4){
+		if(num_maxmin_v2[num_maxmin_v1.length - 1] < 0)  {
+
+			if(Math.abs(num_maxmin_v1[num_maxmin_v1.length - 1 ] - num_maxmin_v1[num_maxmin_v1.length - 3])/num_maxmin_v1[num_maxmin_v1.length - 3] < threshold || Math.abs(num_maxmin_v1[num_maxmin_v1.length - 2 ] - num_maxmin_v1[num_maxmin_v1.length - 4])/num_maxmin_v1[num_maxmin_v1.length - 4] < threshold ){
+				document.getElementById("pattern_img").src= "DT.png";
+				document.getElementById("pattern_type").innerHTML = "Double Bottom: this stock price may fall in the future";
+	}else{
+				document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";
+	}
+
+	}
+
+
+	else{    if(Math.abs(num_maxmin_v1[num_maxmin_v1.length - 1 ] - num_maxmin_v1[num_maxmin_v1.length - 3])/num_maxmin_v1[num_maxmin_v1.length - 3] < threshold){
+						document.getElementById("pattern_img").src= "DB.png";
+				document.getElementById("pattern_type").innerHTML = "Double Bottom: this stock price may rise in the future";
+	}else{
+		document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";
+	}
+
+	}
+
+//
+}
+
+
+
+////////////5 roots
+else if(num_maxmin_v1.length == 5){
+
+	if(num_maxmin_v2[num_maxmin_v1.length - 1] < 0)  {
+		if(Diff > 0 && num_maxmin_v1[4]>num_maxmin_v1[2] && num_maxmin_v1[2]>num_maxmin_v1[0] && num_maxmin_v1[3]> num_maxmin_v1[1]){
+			document.getElementById("pattern_img").src= "RW.png";
+			document.getElementById("pattern_type").innerHTML = "Rising wedge: this stock price may fall in the future";
+		}
+
+
+	}else{    
+if(Diff > 0 && num_maxmin_v1[4]>num_maxmin_v1[2] && num_maxmin_v1[2]>num_maxmin_v1[0] && num_maxmin_v1[3]> num_maxmin_v1[1]){
+			document.getElementById("pattern_img").src= "RW.png";
+			document.getElementById("pattern_type").innerHTML = "Rising wedge: this stock price may fall in the future";
+		}
+	}
+
+}
+
+
+//////////////other roots
+else {
+	document.getElementById("pattern_img").src= "NA.png";
+				document.getElementById("pattern_type").innerHTML = "No Pattern Detected now, please update data or change stock";
+
+}
+}
+
+
+
+		</script>
+
+		<style>
+			html, body{
+				margin: 0;
+				padding: 0;
+				font-family: "Helvetica", sans-serif;
+				text-align: center;
+
+			}
+			.container{
+				margin: 0 auto;
+				width: 1170px;
+			}
+			.graph{
+				width: 1170px;
+				height: 500px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="container">
+			<h1>Stock Price Pattern Recognition</h1>
+			<div class="graph"></div><br/>
+			<button onclick="Pattern_Detection()" style ="padding: 10px 50px ">Click me</button>
+
+
+			<select onChange="window.location.href=this.value">
+			<option value="index.html">index</option>
+    		<option value="index_ADBE.html">ADBE</option>
+    		<option value="index_BABA.html">BABA</option>
+    		<option value="index_BAC.html">BAC</option>
+    		<option value="index_BIDU.html">BIDU</option>
+    		<option value="index_BLK.html">BLK</option>
+    		<option value="index_COP.html">COP</option>
+    		<option value="index_GOOG.html">GOOG</option>
+    		<option value="index_JPM.html">JPM</option>
+    		<option value="index_MAR.html">MAR</option>
+    		<option value="index_NOC.html">NOC</option>
+    		<option value="index_NTES.html">NTES</option>
+    		<option value="index_NVDA.html">NVDA</option>
+    		<option value="index_PANW.html">PANW</option>
+    		<option value="index_PSTG.html">PSTG</option>
+    		<option value="index_SINA.html">SINA</option>
+    		<option value="index_TCEHY.html">TCEHY</option>
+    		<option value="index_TSLA.html">TSLA</option>
+    		<option value="index_WB.html">WB</option>
+    		<option value="index_WUBA.html">WUBA</option>
+    		<option value="index_YHOO.html">YHOO</option>
+
+
+			</select>
+
+
+			<r><big><big><big><big><b><p id="pattern_type"></p></big><b></big></big></big></r>
+			<img src="stock.jpg" id="pattern_img" style="width:828px;height:428px;"/><br>
+
+
+			<h2></h2>
+		</div>
+	</body>
+</html>

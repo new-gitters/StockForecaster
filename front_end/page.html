@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Stock Prediction</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	
+	<link rel="stylesheet" href="assets/plugins/animate.css">
+	<link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
+	<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+
+	<link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<script type="text/javascript">
+function patrecog(){
+		window.open("http://localhost/web/assets/js/php/regression/example/index_BAC.html");
+}
+function updateDateSec()
+{
+	var typeSelector = document.getElementById("datatype");
+	var datatype = typeSelector.options[typeSelector.selectedIndex].text;
+	var dateSec = document.getElementById("dateSec");
+		if(datatype == "Real-Time")
+		{
+			dateSec.innerHTML = '';
+		}
+		else
+		{
+			dateSec.innerHTML = '<label class="label">Start Date</label><label class="input state-success"><input type="date" id="startdate" name="startdate"></label>';
+		}
+}
+function confirm(){
+		//2.collect values
+		//a.symbol
+		var comSelector = document.getElementById("company"); 
+		var com_Name = comSelector.options[comSelector.selectedIndex].text;
+		var symbol = getSymbol(com_Name);
+
+		//b.algo
+		var algoSelector = document.getElementById("algo");
+		var algotype = algoSelector.options[algoSelector.selectedIndex].text;
+
+		//c.data type
+		var typeSelector = document.getElementById("datatype");
+		var datatype = typeSelector.options[typeSelector.selectedIndex].text;
+		
+		//2.update demo html
+		var x = document.getElementById("demo");
+		var chart = '<div class="col-md-6"><div id="container" style="min-width:400px;height:400px"></div></div>';
+		
+		var currentPrice = '<label class="label">Current Price</label><label class="input state-success"><input type="text"></label>';
+		var predictPrice = '<label class="label">Predict Price</label><label class="input state-success"><input type="text"></label>';
+		var patternBtn = '<section><label class="label"><button type="button" class="btn-u" onclick="javascript:patrecog()">Pattern Recognization</button></section>';
+		var content = '<section class="col-md-6">' + currentPrice + predictPrice + patternBtn + '</section>';
+						
+		x.innerHTML = chart + content;
+
+		//d.start date if historical
+		var arrDate =[];
+		var arrPrice = [];
+		if(datatype == "Historical")
+		{
+			var sd = document.getElementById("startdate");
+			if(sd.value == null || sd.value == '')
+			{
+				alert("Date is empty!")
+				document.getElementById("demo").innerHTML = "";
+				return;
+			}
+			var startdate = new Date(sd.value);
+			var currdate = new Date();
+	    	if(!validate(startdate, currdate))
+			{
+				alert("The Start date has to be more than 7 days before present and no more than 100 days before present!")
+				document.getElementById("demo").innerHTML = "";
+				return;
+			}
+			else{
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange =  function() {
+  					if (this.readyState == 4 && this.status == 200) {
+    					var myArr = JSON.parse(this.responseText);
+    					for(var i =0;i<myArr.length;i++)
+						{
+							
+							arrDate.push(myArr[i].time);
+							arrPrice.push(myArr[i].price);
+						}
+						//fill the values
+						drawChart(arrDate, arrPrice, com_Name);
+  					}
+				};
+				xmlhttp.open("GET", "http://localhost:8080/api/drawdata/historical/"+symbol+"/"+sd.value+"/", true);
+				xmlhttp.send();
+			}
+		}
+		else{
+			//get real data points and current price and prediction price
+		}
+
+		
+}
+</script>
+<body>
+	<div class="wrapper">
+		<div class="container content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="tab-v1">
+						<div class="tab-content">
+							<div class="tab-pane fade in active">
+								<form action="#" class="sky-form">
+									<header></header>
+									<fieldset>
+										<section>
+											<label class="label">Select a Company</label>
+											<label class="select state-success">
+												<select id="company">
+													<option value="0" selected>Apple</option>
+													<option value="1">Google</option>
+													<option value="2">Facebook</option>
+													<option value="3" >Baidu</option>
+													<option value="4">Alibaba</option>
+													<option value="5">Microsoft</option>
+													<option value="6">Bilibili</option>
+													<option value="7" >Tesla</option>
+													<option value="8">Nvidia</option>
+													<option value="9">Amazon</option>
+												</select>
+												<i></i>
+											</label>
+										</section>
+										<section>
+											<label class="label">Select a Algorithm</label>
+											<label class="select state-success">
+												<select id="algo">
+													<option value="0" selected>Bayesian</option>
+													<option value="1">ANN</option>
+													<option value="2">SVM</option>
+												</select>
+												<i></i>
+											</label>
+										</section>
+
+										<section>
+											<label class="label">Select a Data Type</label>
+											<label class="select state-success">
+												<select id="datatype" onchange="updateDateSec()">
+													<option value="0" selected>Historical</option>
+													<option value="1">Real-Time</option>
+												</select>
+												<i></i>
+											</label>
+										</section>
+										
+										<section id="dateSec">
+											
+											<label class="label">Select a Start Date</label>
+											<label class="input state-success">
+												<input type="date" id="startdate" name="startdate">
+											</label>
+											
+										</section>
+										
+										
+										
+										<section>
+											<label class="label">
+												<button type="button" class="btn-u" onclick="javascript:confirm()">Confirm</button>
+											
+										</section>
+									</fieldset>
+
+
+									<fieldset id="demo"></fieldset>
+									
+									<fieldset>
+										<section class="col-md-3">
+											<label class="label">Company List</label>
+											<ul class="list-group sidebar-nav-v1" id="sidebar-nav">
+						
+												<li class="list-group-item list-toggle">
+													<a  href="#">Apple</a>							
+												</li>
+												<li class="list-group-item list-toggle">
+													<a  href="#">Google</a>							
+												</li>
+												<li class="list-group-item list-toggle">
+													<a  href="#">Baidu</a>							
+												</li>
+												<li class="list-group-item list-toggle">
+													<a  href="#">Ali</a>							
+												</li>
+											</ul>
+										</section>	
+									</fieldset>
+									
+									<fieldset>
+										<section class="col-md-6">
+											<div class="panel panel-green margin-bottom-40">
+												<div class="panel-heading">
+													<h3 class="panel-title"><i class="fa fa-tasks"></i>Today</h3>
+												</div>
+												
+												<table class="table">
+													<thead>
+														<tr>
+															<th>stock id</th>
+															<th>Begin</th>
+															<th class="hidden-sm">Highest in today</th>
+															<th>now</th>
+															
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>APPL</td>
+															<td>12</td>
+															<td class="hidden-sm">13</td>
+															<td>12</td>
+															
+														</tr>
+														<tr>
+															<td>GOOG</td>
+															<td>15</td>
+															<td class="hidden-sm">16</td>
+															<td>14</td>
+															
+														</tr>
+														<tr>
+															<td>ALi</td>
+															<td>15</td>
+															<td class="hidden-sm">18</td>
+															<td>16</td>
+															
+														</tr>
+														<tr>
+															<td>Baidu</td>
+															<td>23</td>
+															<td class="hidden-sm">25</td>
+															<td>24</td>
+															
+														</tr>
+													</tbody>
+												</table>
+											</div>
+					
+										</section>
+										<section class="col-md-6">
+											<div class="panel panel-blue margin-bottom-40">
+												<div class="panel-heading">
+													<h3 class="panel-title"><i class="fa fa-tasks"></i>Last Year</h3>
+												</div>
+												
+												<table class="table">
+													<thead>
+														<tr>
+															<th>stock id</th>
+															<th>Begin</th>
+															<th class="hidden-sm">Highest in year</th>
+															<th>now</th>
+															
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>APPL</td>
+															<td>15</td>
+															<td class="hidden-sm">17</td>
+															<td>12</td>
+															
+														</tr>
+														<tr>
+															<td>GOOG</td>
+															<td>16</td>
+															<td class="hidden-sm">17</td>
+															<td>14</td>
+															
+														</tr>
+														<tr>
+															<td>ALi</td>
+															<td>18</td>
+															<td class="hidden-sm">18</td>
+															<td>16
+															</td>
+															
+														</tr>
+														<tr>
+															<td>Baidu</td>
+															<td>20</td>
+															<td class="hidden-sm">30</td>
+															<td>24</td>
+															
+														</tr>
+													</tbody>
+												</table>
+											</div>
+					
+										</section>	
+									</fieldset>
+									
+								</form>
+								
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.10/highcharts.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.10/modules/exporting.js"></script>
+<script src ="assets/js/php/Yahoo_Scraping.php"></script>
+<script type="text/javascript">
+
+function getSymbol(com_Name)
+{
+	if(com_Name == "Google")
+	{
+		return "GOOG";
+	}
+	else if(com_Name == "Facebook")
+	{
+		return "FB";
+	}
+	else if(com_Name == "Microsoft")
+	{
+		return "MSFT";
+	}
+	else if(com_Name == "Alibaba")
+	{
+		return "BABA";
+	}
+	else if(com_Name == "Bilibili")
+	{
+		return "BILI";
+	}
+	else if(com_Name == "Baidu")
+	{
+		return "BIDU";
+	}
+	else if(com_Name == "Tesla")
+	{
+		return "TSLA";
+	}
+	else if(com_Name == "Nvidia")
+	{
+		return "NVDA";
+	}
+	else if(com_Name == "Amazon")
+	{
+		return "AMZN";
+	}
+	else if(com_Name == "Apple")
+	{
+		return "AAPL";
+	}
+}
+
+function getCompany(symbol)
+{
+	if(symbol == "GOOG")
+	{
+		return "Google";
+	}
+	else if(symbol == "FB")
+	{
+		return "Facebook";
+	}
+	else if(symbol == "MSFT")
+	{
+		return "Microsoft";
+	}
+	else if(symbol == "BABA")
+	{
+		return "Alibaba";
+	}
+	else if(symbol == "BILI")
+	{
+		return "Bilibili";
+	}
+	else if(symbol == "BIDU")
+	{
+		return "Baidu";
+	}
+	else if(symbol == "TSLA")
+	{
+		return "Tesla";
+	}
+	else if(symbol == "NVDA")
+	{
+		return "Nvidia";
+	}
+	else if(symbol == "AMZN")
+	{
+		return "Amazon";
+	}
+	else if(symbol == "AAPL")
+	{
+		return "Apple";
+	}
+}
+
+function validate(startdate, currdate){
+	var Difference_In_Time = currdate.getTime() - startdate.getTime(); 
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+	if(Difference_In_Days <7 || Difference_In_Days >100)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+}
+
+function drawChart(arrDate, arrPrice, com_Name){
+	var chart = new Highcharts.Chart('container', {
+    	title: {
+        	text: com_Name+' stock price',
+        	x: -20
+    	},
+    	xAxis: {
+        	categories: arrDate
+    	},
+    	yAxis: {
+        	title: {
+            	text: 'Price ($)'
+        	},
+        	plotLines: [{
+            	value: 0,
+            	width: 1,
+            	color: '#808080'
+        	}]
+    	},
+    	tooltip: {
+        	valuePrefix: '$'
+    	},
+    	legend: {
+        	layout: 'vertical',
+        	align: 'right',
+        	verticalAlign: 'middle',
+        	borderWidth: 0
+    	},
+    	series: [{
+        	name: 'stock price',
+        	data: arrPrice
+    	}]
+	});
+}
+
+</script>
+</body>
+</html>
